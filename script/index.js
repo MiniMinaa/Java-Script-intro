@@ -43,7 +43,7 @@
 
 console.log(isValidPassword("supersecurepassword123abclol", "Mina")); */
 
-function guessRandomNumber() {
+/*function guessRandomNumber() {
     let randomNumber = Math.random();
     randomNumber = randomNumber * 10;
     randomNumber = Math.ceil(randomNumber);
@@ -63,4 +63,51 @@ function guessRandomNumber() {
         }
     }
 }
-guessRandomNumber()
+guessRandomNumber()*/
+
+const account = {
+    accountName: "Mina",
+    balance: 200,
+    closed: false,
+    getBalance: function() {
+        console.log(`current balance: $${this.balance}`);
+    },
+    deposit: function(amount) {
+        if(this.closed){
+            this.accountError(`Nah uh this account has been closed`);
+        }
+        else if (amount > 0) {
+            this.balance += amount;
+            console.log (`Deposited: $${amount}`);
+            this.getBalance();
+        }
+        else {
+            this.accountError('Deposit amount must be higher than 0.');
+        }
+    },
+    withdrawal: function(amount) {
+        if (this.closed){
+            this.accountError(`Nah uh this account has been closed`);
+        }
+        else if (this.balance >= amount) {
+            this.balance -= amount;
+            console.log (`withdrawal: $${amount}`);
+            this.getBalance();
+        }
+        else {
+            this.accountError('withdrawal amount must be lower than balance.');
+        }
+    },
+    getAccountName: function() {
+        console.log(this.accountName);
+    },
+    accountError: function(errorMsg) {
+        console.log(`ERROOOOOR: ${errorMsg}`);
+    },
+    exitAccount: function() {
+       this.balance = NaN; 
+       this.accountName = null;
+       this.closed = true; 
+       console.log(`this account has been closed`) 
+    }
+}
