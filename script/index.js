@@ -28,16 +28,39 @@
 //5. Print out the new price using console.log(), for example: 'Your new price is: $44.99' 
 //console.log("Your new price is: $" + priceNoSign); 
 
-function isValidPassword(password, username) {
+/* function isValidPassword(password, username) {
     if (password.length < 8) {
         return false;
+    }
+    if (password.includes(' ')){
+        return false;
+    }
+    if (password.includes(username)) {
+        return false;
+    }
+    return true;
 }
-if (password.includes(' ')){
-    return false;
+
+console.log(isValidPassword("supersecurepassword123abclol", "Mina")); */
+
+function guessRandomNumber() {
+    let randomNumber = Math.random();
+    randomNumber = randomNumber * 10;
+    randomNumber = Math.ceil(randomNumber);
+
+    let keepGuessing = true;
+    while(keepGuessing) {
+
+        userInput = prompt("Guess a number!");
+        if(userInput == randomNumber) {
+            keepGuessing = false;
+        }
+        else if(userInput < randomNumber) {
+        alert("Too low");
+        }
+        else if(userInput > randomNumber) {
+        alert("Too high");
+        }
+    }
 }
-if (password.includes(username)) {
-    return false;
-}
-return true;
-}
-console.log(isValidPassword("supersecurepassword123abclol", "Mina"));
+guessRandomNumber()
