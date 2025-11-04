@@ -76,6 +76,9 @@ const account = {
         if(this.closed){
             this.accountError(`Nah uh this account has been closed`);
         }
+        else if(isNaN(amount)) {
+            this.accountError(`Nah uh this amount is not a number`);
+        }
         else if (amount > 0) {
             this.balance += amount;
             console.log (`Deposited: $${amount}`);
@@ -89,13 +92,16 @@ const account = {
         if (this.closed){
             this.accountError(`Nah uh this account has been closed`);
         }
-        else if (this.balance >= amount) {
+        else if(isNaN(amount)) {
+            this.accountError(`Nah uh this amount is not a number`);
+        }
+        else if (this.balance >= amount && amount > 0) {
             this.balance -= amount;
             console.log (`withdrawal: $${amount}`);
             this.getBalance();
         }
         else {
-            this.accountError('withdrawal amount must be lower than balance.');
+            this.accountError('withdrawal amount must be lower than balance and withdrawal amout larger than 0.');
         }
     },
     getAccountName: function() {
@@ -111,3 +117,32 @@ const account = {
        console.log(`this account has been closed`) 
     }
 }
+
+function atm () {
+    const message = parseFloat(
+        prompt (
+            "Select a choice 1.) See balance 2.) Make a deposit 3.) Make a withdrawal 4.) Get account name 5.) Exit"
+        )
+    );
+    switch (message) {
+        case 1:
+            account.getBalance();
+            break;
+        case 2:
+            account.deposit(parseFloat(prompt("Choose your deposit amount")));
+            break;
+        case 3:
+            account.withdrawal(parseFloat(prompt("Choose your withdrawal amount")));
+            break;
+        case 4:
+            account.getAccountName();
+            break;
+        case 5:
+            account.exitAccount();
+            break;
+        default:
+            console.log("Select a valid choice!");
+    }
+}
+
+atm()
