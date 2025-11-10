@@ -65,7 +65,7 @@ console.log(isValidPassword("supersecurepassword123abclol", "Mina")); */
 }
 guessRandomNumber()*/
 
-const account = {
+/*const account = {
     accountName: "Mina",
     balance: 200,
     closed: false,
@@ -145,4 +145,70 @@ function atm () {
     }
 }
 
-atm()
+atm()*/
+
+let library = [];
+let running = true;
+
+function addBook(){
+    const title = prompt("Enter the book title:");
+    const author = prompt("Enter the author");
+    const isReadInput = prompt ("Have you read this book? (yes/no").toLowerCase();
+    const isRead = isReadInput === "yes";
+    
+    const newBook = { title, author, isRead };
+
+    library.push(newBook);
+    alert(`Book "${title}" added!`);
+}
+
+function listBooks() {
+    if (library.length === 0) {
+        console.log ("Your library is empty!");
+        return;
+    }
+    console.log(`My library has ${library.length} books:`)
+    library.forEach(book => {
+        console.log(`Title: ${book.title}, author: ${book.author}, already read: ${book.isRead}`);
+    });
+}  
+//const book1 = { title: "if cats disappeared from the world", author: "Genki Kawamura", isRead: true };
+
+function markAsRead(title) {
+    const book = library.find(b => b.title.toLowerCase() === title.toLowerCase());
+    if (book) {
+        book.isRead = true;
+        alert(`this book "${book.title}" is marked as read.`);
+    } else {
+        alert(`book "${title}" not found`);
+    }
+}
+while (running) {
+    const choice = parseFloat(prompt(`
+        Book Menu
+        1. Add Book
+        2. List Books
+        3. Mark Book as Read
+        4. Exit
+        Enter your choice: 
+    `));
+
+    switch (choice) {
+        case 1:
+            addBook();
+            break;
+        case 2:
+            listBooks();
+            break;
+        case 3:
+            const title = prompt("Enter the title of the book to mark as read.");
+            markAsRead(title);
+            break;
+        case 4:
+            running = false;
+            alert("Goodbye!");
+            break;
+        default:
+            alert("Invalid choice.");
+    }
+}
